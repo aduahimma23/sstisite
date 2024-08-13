@@ -26,11 +26,6 @@ class Courses(models.Model):
 
 
 class Contact(models.Model):
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
-    created_at = models.DateField(auto_now_add=True)
-
-
-class ContactQuery(models.Model):
     name = models.CharField(max_length=120, blank=False)
     email_address = models.EmailField()
     subject = models.CharField(max_length=128, blank=False, unique=False)
