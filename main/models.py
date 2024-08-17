@@ -18,6 +18,7 @@ class Courses(models.Model):
     course_name = models.CharField(max_length=128, unique=True, null=False)
     short_content = models.CharField(max_length=255, null=False, unique=True)
     main_content = models.CharField(max_length=2500, blank=True, unique=True)
+    duration = models.CharField(max_length=10, blank=False, unique=False)
     created_by = models.CharField(max_length=50, unique=True, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -41,4 +42,23 @@ class Testimonial(models.Model):
 
     def __str__(self) -> str:
         return f'Name: {self.name}'
+
+
+class About(models.Model):
+    title = models.CharField(max_length=255, blank=False)
+    image_file = models.ImageField(upload_to='about_images')
+    content = models.CharField(max_length=5000, blank=False, unique=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.title
+
+
+class Mission(models.Model):
+    title = models.CharField(max_length=255, blank=False)
+    content = models.CharField(max_length=2000)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.title
     

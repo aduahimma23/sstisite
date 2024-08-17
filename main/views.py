@@ -20,3 +20,10 @@ def contact_view(request):
         contact_form = ContactForm()
 
     return render(request, 'main/contact.html', {'form': contact_form})            
+
+def about_view(request):
+    
+    return render(request, 'main/about.html')
+
+def coures_view(request):
+    return render(request, 'main/course.html')
