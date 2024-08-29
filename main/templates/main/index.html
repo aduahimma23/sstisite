@@ -43,14 +43,74 @@
                     </div>
                 </div>
             </div>
+            <!-- Course Statistics Start -->
+            <div class="course-statics">
+                <div class="container">
+                    <div class="row statics text-center">
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <div class="stat-box">
+                                <h6 class="stat-label">Total Courses <span class="stat-number">50</span></h6>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <div class="stat-box">
+                                <h6 class="stat-label">Total Enrollment <span class="stat-number">320</span></h6>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <div class="stat-box">
+                                <h6 class="stat-label">Total Certifications <span class="stat-number">300</span></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- Carousel End -->
 
-    <div>
-        <h2 class="text-center text-uppercase mb-md-3">Our Partners</h2>
-        <h3 class="text-center">Partnered with <span class="span-text">Top Institutions</span> to produce <span class="span-text2">Best Quality Education content</span></h3>
+    <!-- Course Categories Start -->
+    <div class="container-fluid py-5 course-cat">
+        <div class="container pt-1 pb-3 course-container">
+            <div class="text-center mb-5">
+                <h1>Explore Top Courses</h1>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="cat-item card">
+                        <div class="card-body">
+                            <img class="course-img-fluid" src="{% static 'images/main/cat-1.jpg' %}" alt="">
+                            <h3 class="card-title">Web Design</h3>
+                            <p class="card-text">Explore the fundamentals of web design and development.</p>
+                            <div class="cat-link">
+                                <a href="#" class="btn btn-primary read-more">Read More</a>
+                                <a href="#" class="btn btn-primary register">Register</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="cat-item position-relative overflow-hidden rounded">
+                        <img class="course-img-fluid" src="{% static 'images/main/cat-2.jpg' %}" alt="">
+                        <div class="overlay">
+                            <h4 class="text-white font-weight-medium">Development</h4>
+                        </div>
+                    </div>
+                </div>  
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="cat-item position-relative overflow-hidden rounded">
+                        <img class="course-img-fluid" src="{% static 'images/main/cat-3.jpg' %}" alt="">
+                        <div class="overlay">
+                            <h4 class="text-white font-weight-medium">Game Design</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- Course Categories End -->
 
     <div class="why-ssti">
         <h2 class="text-center text-uppercase mb-md-3">Why Soft Skills Training Institute</h2>
@@ -124,107 +184,65 @@
             </div>
         </div>
     </div>
-    
 
-    <!-- Category Start -->
-    <div class="container-fluid py-5 course-cat">
-        <div class="container pt-5 pb-3 course-container">
-            <div class="text-center mb-5">
-                <h5 class="text-primary text-uppercase mb-3 course-header" style="letter-spacing: 5px;">Courses</h5>
-                <h1>Explore Top Courses</h1>
-            </div>
-            <div class="row justify-content-center">
-
-                <div class="col-lg-6 col-md-6 mb-4">
-                    <div class="cat-item card">
-                        <div class="card-body">
-                            <img class="course-img-fluid" src="{% static 'images/main/cat-1.jpg' %}" alt="">
-                            <h3 class="card-title">Web Design</h3>
-                            <p class="card-text"></p>
-                           <div class="cat-link">
-                            <a href="" class="btn-primary read-more">Read More</a>
-                            <a href="" class="btn-primary register">Register</a>
-                           </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6 mb-4">
-                    <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                        <img class="course-img-fluid" src="{% static 'images/main/cat-2.jpg' %}" alt="">
-                            <h4 class="text-white font-weight-medium">Development</h4>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6 mb-4">
-                    <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                        <img class="course-img-fluid" src="{% static 'images/main/cat-3.jpg' %}" alt="">
-                            <h4 class="text-white font-weight-medium">Game Design</h4>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6 mb-4">
-                    <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                        <img class="course-img-fluid" src="{% static 'images/main/cat-4.jpg' %}" alt="">
-                            <h4 class="text-white font-weight-medium">Apps Design</h4>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6 mb-4">
-                    <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                        <img class="course-img-fluid" src="{% static 'images/main/cat-5.jpg' %}" alt="">
-                            <h4 class="text-white font-weight-medium">Marketing</h4>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6 mb-4">
-                    <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                        <img class="course-img-fluid" src="{% static 'images/main/cat-6.jpg' %}" alt="">
-                            <h4 class="text-white font-weight-medium">Research</h4>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+    <div>
+        <h2 class="text-center text-uppercase mb-md-3">Our Partners</h2>
+        <h3 class="text-center">Partnered with <span class="span-text">Top Institutions</span> to produce <span class="span-text2">Best Quality Education content</span></h3>
     </div>
-    
-    <!-- Category Start -->
 
     <!-- Testimonial Start -->
-    <div class="container-fluid py-5">
+    <div class="container-fluid testimonial py-5">
         <div class="container py-5">
             <div class="text-center mb-5">
-                <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Testimonial</h5>
-                <h1>What Say Our Students</h1>
+                <h1>What Our Students Say</h1>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <div class="owl-carousel testimonial-carousel">
-                        <div class="text-center">
-                            <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
-                            <h4 class="font-weight-normal mb-4">Dolor eirmod diam stet kasd sed. Aliqu rebum est eos. Rebum elitr dolore et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</h4>
-                            <img class="img-fluid mx-auto mb-3" src="{% static 'images/main/testimonial-1.jpg' %}" alt="">
-                            <h5 class="m-0">Client Name</h5>
-                            <span>Profession</span>
-                        </div>
-                        <div class="text-center">
-                            <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
-                            <h4 class="font-weight-normal mb-4">Dolor eirmod diam stet kasd sed. Aliqu rebum est eos. Rebum elitr dolore et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</h4>
-                            <img class="img-fluid mx-auto mb-3" src="{% static 'images/main/testimonial-2.jpg' %}" alt="">
-                            <h5 class="m-0">Client Name</h5>
-                            <span>Profession</span>
-                        </div>
-                        <div class="text-center">
-                            <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
-                            <h4 class="font-weight-normal mb-4">Dolor eirmod diam stet kasd sed. Aliqu rebum est eos. Rebum elitr dolore et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</h4>
-                            <img class="img-fluid mx-auto mb-3" src="{% static 'images/main/testimonial-3.jpg' %}" alt="">
-                            <h5 class="m-0">Client Name</h5>
-                            <span>Profession</span>
+                    <div class="testimonial-container">
+                        <div class="testimonial-wrapper d-flex">
+                            <div class="testimonial-item col-lg-4">
+                                <div class="text-center">
+                                    <img class="img-fluid mx-auto mb-3 rounded-circle" src="{% static 'images/main/testimonial-1.jpg' %}" alt="">
+                                    <h4 class="font-weight-normal mb-4">Dolor eirmod diam stet kasd sed. Aliqu rebum est eos. Rebum elitr dolore et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</h4>
+                                    <h5 class="m-0">Client Name</h5>
+                                </div>
+                            </div>
+                            <div class="testimonial-item col-lg-4">
+                                <div class="text-center">
+                                    <img class="img-fluid mx-auto mb-3 rounded-circle" src="{% static 'images/main/testimonial-2.jpg' %}" alt="">
+                                    <h4 class="font-weight-normal mb-4">Dolor eirmod diam stet kasd sed. Aliqu rebum est eos. Rebum elitr dolore et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</h4>
+                                    <h5 class="m-0">Client Name</h5>
+                                </div>
+                            </div>
+                            <div class="testimonial-item col-lg-4">
+                                <div class="text-center">
+                                    <img class="img-fluid mx-auto mb-3 rounded-circle" src="{% static 'images/main/testimonial-3.jpg' %}" alt="">
+                                    <h4 class="font-weight-normal mb-4">Dolor eirmod diam stet kasd sed. Aliqu rebum est eos. Rebum elitr dolore et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</h4>
+                                    <h5 class="m-0">Client Name</h5>
+                                </div>
+                            </div>
+                            <div class="testimonial-item col-lg-4">
+                                <div class="text-center">
+                                    <img class="img-fluid mx-auto mb-3 rounded-circle" src="{% static 'images/main/testimonial-1.jpg' %}" alt="">
+                                    <h4 class="font-weight-normal mb-4">Dolor eirmod diam stet kasd sed. Aliqu rebum est eos. Rebum elitr dolore et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</h4>
+                                    <h5 class="m-0">Client Name</h5>
+                                </div>
+                            </div>
+                            <div class="testimonial-item col-lg-4">
+                                <div class="text-center">
+                                    <img class="img-fluid mx-auto mb-3 rounded-circle" src="{% static 'images/main/testimonial-2.jpg' %}" alt="">
+                                    <h4 class="font-weight-normal mb-4">Dolor eirmod diam stet kasd sed. Aliqu rebum est eos. Rebum elitr dolore et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</h4>
+                                    <h5 class="m-0">Client Name</h5>
+                                </div>
+                            </div>
+                            <div class="testimonial-item col-lg-4">
+                                <div class="text-center">
+                                    <img class="img-fluid mx-auto mb-3 rounded-circle" src="{% static 'images/main/testimonial-3.jpg' %}" alt="">
+                                    <span>Profession</span>
+                                    <h5 class="m-0">Client Name</h5>
+                                    <h4 class="font-weight-normal mb-4">Dolor eirmod diam stet kasd sed. Aliqu rebum est eos. Rebum elitr dolore et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</h4>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

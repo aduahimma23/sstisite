@@ -1,0 +1,60 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>Sign Up</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-row mb-3">
+            <label for="id_first_name" class="col-form-label col-md-2">First Name</label>
+            <div class="col-md-4">
+                {{ form.first_name }}
+            </div>
+            <label for="id_last_name" class="col-form-label col-md-2">Last Name</label>
+            <div class="col-md-4">
+                {{ form.last_name }}
+            </div>
+        </div>
+        <div class="form-row mb-3">
+            <label for="id_other_name" class="col-form-label col-md-2">Other Name</label>
+            <div class="col-md-4">
+                {{ form.other_name }}
+            </div>
+            <label for="id_username" class="col-form-label col-md-2">Username</label>
+            <div class="col-md-4">
+                {{ form.username }}
+            </div>
+        </div>
+        <div class="form-row mb-3">
+            <label for="id_email" class="col-form-label col-md-2">Email</label>
+            <div class="col-md-4">
+                {{ form.email }}
+            </div>
+            <label for="id_phone_number" class="col-form-label col-md-2">Phone Number</label>
+            <div class="col-md-4">
+                {{ form.phone_number }}
+            </div>
+        </div>
+        <div class="form-row mb-3">
+            <label for="id_date_of_birth" class="col-form-label col-md-2">Date of Birth</label>
+            <div class="col-md-4">
+                {{ form.date_of_birth }}
+            </div>
+            <label for="id_password1" class="col-form-label col-md-2">Password</label>
+            <div class="col-md-4">
+                {{ form.password1 }}
+            </div>
+        </div>
+        <div class="form-row mb-3">
+            <label for="id_password2" class="col-form-label col-md-2">Confirm Password</label>
+            <div class="col-md-4">
+                {{ form.password2 }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+</div>
+
+{% endblock %}

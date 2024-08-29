@@ -16,6 +16,7 @@ class SociolMedia(models.Model):
 
 class Courses(models.Model):
     course_name = models.CharField(max_length=128, unique=True, null=False)
+    image_file = models.ImageField(upload_to='course images')
     short_content = models.CharField(max_length=255, null=False, unique=True)
     main_content = models.CharField(max_length=2500, blank=True, unique=True)
     duration = models.CharField(max_length=10, blank=False, unique=False)
@@ -61,4 +62,14 @@ class Mission(models.Model):
 
     def __str__(self) -> str:
         return self.title
+    
+class Partners(models.Model):
+    partner_name = models.CharField(max_length=55, unique=True, blank=False)
+    ABV = models.CharField(max_length=10, unique=True, blank=False)
+    logo = models.ImageField(upload_to='partner images', blank=False)
+    joined_at = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f'Name: {self.partner_name} Date Joined {self.joined_at} Created at: {self.created_at}'
     
