@@ -19,7 +19,7 @@ def signup_view(request):
     else:
          forms = CustomUserCreationForm()
 
-    return render(request, 'account/signup.html', {'form': forms})
+    return render(request, 'account/user_account.html', {'form': forms})
 
 def login_view(request):
     if request.method == 'POST':

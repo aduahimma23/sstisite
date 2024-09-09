@@ -2,7 +2,7 @@ from django.urls import path
 from .views import *
 from django.contrib.auth import views as auth_views
 
-app_name = 'acc'
+app_name = 'account'
 
 urlpatterns = [
     path('signup/', signup_view, name='signup'),

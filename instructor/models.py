@@ -3,14 +3,20 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 import random
 
-class InstructorProfile(models.Model):
-    instructor = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='instructor_profile')
-    bio = models.CharField(max_length=1024, blank=False, unique=True)
-    profile_picture = models.ImageField(upload_to='instructor_pictures', blank=True, null=True)
+
+class Instructor(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='instructor_profile')
+    full_name = models.CharField(max_length=155, null=False, blank=False, unique=False)
     expertise = models.CharField(max_length=255, blank=False, null=True)
     phone_number = models.CharField(max_length=15, blank=False, unique=True)
     instructor_id = models.CharField(max_length=8, unique=True, editable=False)
     date_joined = models.DateTimeField(auto_now_add=True)
+
+
+class InstructorProfile(models.Model):
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
+    bio = models.CharField(max_length=1024, blank=False, unique=True)
+    profile_picture = models.ImageField(upload_to='instructor_pictures', blank=True, null=True)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name} - Instructor Profile"
@@ -28,15 +34,16 @@ class InstructorProfile(models.Model):
 
 
 class Course(models.Model):
-    instructor = models.ForeignKey(InstructorProfile, on_delete=models.CASCADE)
+    instructor_profile = models.ForeignKey(InstructorProfile, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, unique=False, blank=False)
-    course_id = models.CharField(max_length=5, unique=True, editable=False)
+    course_id = models.CharField(max_length=8, unique=True, editable=False)
     description = models.TextField()
+    status = models.BooleanField(default=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return f'Instructor Name: {self.instructor.first_name} {self.instructor.last_name}| Course Title: {self.title} | Date Creted: {self.date_created}'
-    
+        return f'Instructor Name: {self.instructor_profile.instructor.first_name} {self.instructor_profile.instructor.last_name} | Course Title: {self.title} | Date Created: {self.date_created}'
+
     def save(self, *args, **kwargs):
         if not self.course_id:
             self.course_id = self.generate_unique_course_id()
@@ -45,31 +52,42 @@ class Course(models.Model):
     def generate_unique_course_id(self):
         while True:
             course_id = ''.join([str(random.randint(0, 9)) for _ in range(8)])
-            if not InstructorProfile.objects.filter(course_id = course_id).exists():
+            if not Course.objects.filter(course_id=course_id).exists():
                 return course_id
 
 
 class CourseDetail(models.Model):
-    coure = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='courses')
-    cover_image = models.ImageField(upload_to='course_detail', blank=False)
+    course_name = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='courses')
+    content_type = models.CharField(max_length=255, blank=False, null=False)
+    content = models.FileField(upload_to='course_content/')
+    video_number = models.IntegerField(blank=True, null=True)
+    uploaded_at = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return f'Details for {self.coure.title}'
-    
+        return f'Details for {self.course_name.title}'
 
-class VideoFile(models.Model):
-    course_detail = models.ForeignKey(CourseDetail, on_delete=models.CASCADE, related_name='videos')
-    video_name = models.CharField(max_length=200, blank=False, unique=True)
-    video_des = models.CharField(max_length=2000, blank=True, unique=False)
-    video_file = models.FileField(upload_to='course_videos', blank=False)
-    video_number = models.PositiveIntegerField()
 
-    class Meta:
-        unique_together = ('course_detail', 'video_number')
+class Assignment(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    due_date = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self) -> str:
-        return f'Video {self.video_number} for {self.course_detail.coure.title}'
-    
+    def __str__(self):
+        return self.title
+
+
+class Assessment(models.Model):
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
+    assessment_type = models.CharField(max_length=50)
+    total_marks = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.assignment.title} - {self.assessment_type}"
+
+
 class CreateAssessment(models.Model):
     '''For the Instructor to create a question'''
 
@@ -94,7 +112,7 @@ class CreateAssessment(models.Model):
     option_c = models.CharField(max_length=255, blank=True, unique=True)
     option_d = models.CharField(max_length=255, blank=True, unique=True)
 
-    marks = models.PositiveIntegerField(max_length=2, unique=False, blank=False)
+    marks = models.PositiveIntegerField(unique=False, blank=False)
 
     correct_answer = models.CharField(max_length=1, blank=False, null=False, unique=False, choices=CORRECT_ANSWER_OPTION)
 
@@ -111,27 +129,31 @@ class CreateAssessment(models.Model):
         return self.question_text
 
 
-class MarkAssessment(models.Model):
-    '''Mark student assesment'''
-
-    assessment = models.ForeignKey(CreateAssessment, on_delete=models.CASCADE, related_name='mark_assesment')
-    student_id = models.CharField(max_length=8, unique=True)
-    student_answer = models.TextField()
-    marks_obtain = models.PositiveBigIntegerField(blank=True, null=True)
-    feedback = models.TextField(max_length=500, blank=True, null=True)
-
-    def clean(self) -> None:
-        if self.assessment.question_type == 'MCQ':
-            if self.student_answer not in ['A', 'B', 'C', 'D']:
-                raise ValidationError("Invalid answer for MCQ. It must be one of the options: A, B, C, or D.")
-            if self.student_answer == self.assessment.correct_answer:
-                self.marks_obtain = self.assessment.marks
-            else:
-                self.marks_obtain = 0
-        elif self.assessment.question_type == 'SUB':
-            if not self.student_answer:
-                raise ValidationError("Subjective questions require a student answer.")
-            # Marks for subjective answers can be manually assigned
+class StudentSubmission(models.Model):
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    submission_file = models.FileField(upload_to='submissions/', blank=True, null=True)
+    submission_text = models.TextField(blank=True, null=True)
+    submitted_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Assessment: {self.assessment.question_text}, Student: {self.student_id}"
+        return f"{self.student.username} - {self.assignment.title}"
+
+class MarkAssessment(models.Model):
+    student_submission = models.ForeignKey(StudentSubmission, on_delete=models.CASCADE)
+    marks_obtained = models.IntegerField()
+    feedback = models.TextField(blank=True, null=True)
+    marked_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.student_submission.student.username} - Marks: {self.marks_obtained}"
+    
+
+class PaymentStatus(models.Model):
+    instructor = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='payment_status')
+    has_paid = models.BooleanField(default=False)
+    payment_date = models.DateTimeField(null=True, blank=True)
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.instructor.username} - {'Paid' if self.has_paid else 'Not Paid'}"

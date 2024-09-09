@@ -1,0 +1,263 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #fff;
+}
+
+.sidebar-link, .sidebar-link:hover, .sidebar-link:focus {
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.navbar {
+  background: #FFD700;
+  border: 3px solid #FFD700;
+  border-radius: 10px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  max-height: 60px;
+  min-height: 60px;
+}
+
+.navbar .container-fluid{
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+.nav-item{
+  padding-right: 10px;
+}
+
+.navbar-brand img{
+  height: 120px;
+  width: 90px;
+}
+
+.nav-link i{
+  color: #02066f;
+}
+
+.fallback-icon{
+  vertical-align: middle;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+.wrapper-container {
+  display: flex;
+  height: 100vh;
+  margin-left: 0;
+}
+
+.wrapper {
+  width: 250px;
+  background-color: #02066f;
+  border-radius: 0 20px 20px 0;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+/* Default Sidebar Styles */
+#sidebar {
+  margin-top: 20px;
+  min-width: 200px;
+  max-width: 200px;
+  transition: all 0.3s;
+  padding: 0 5px;
+}
+
+.sidebar-link{
+  padding: 15px 10px;
+  font-size: 1.7em;
+  display: block;
+  text-decoration: none;
+  color: #fff;
+}
+
+.sidebar-link:hover {
+  color: #02066f;
+  background: #FFD700;
+  border-radius: 10px;
+}
+
+.sidebar-link i{
+    border-radius: 50%;
+    background-color: #fff;
+    color: #02066f;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.dropdown-menu {
+  border: none;
+  width: 100%;
+}
+
+.dropdown-item {
+  color: #f8f9fa;
+  font-size: 14px;
+  text-transform: capitalize;
+  border-bottom: 1px solid #02066f;
+}
+
+.dropdown-item:hover {
+  background-color: #02066f;
+  color: #fff;
+}
+
+/* Instructor Index CSS */
+.explore-course{
+  margin: 0 auto;
+}
+
+.card {
+  border: 1px solid #02066f;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.card-header {
+  text-align: center;
+  padding: 15px;
+  background-color: #FFD700;
+}
+ 
+.course-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.course {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.add-new {
+  text-decoration: none;
+}
+
+.add-new-btn{
+  font-size: 16px;
+  color: #fff;
+  background-color: #02066f;
+  border: 1px solid #02066f;
+  border-radius: 8px;
+}
+
+.add-new-btn:hover{
+  background-color: #FFD700;
+  border: 1px solid #FFD700;
+  color: #02066f;
+}
+
+.table-row {
+  border-bottom: 2px solid #02066f;
+}
+
+.table-head{
+  border: 2px solid #02066f;
+  border-bottom: 2px solid #02066f;
+  justify-content: center;
+  text-align: center;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+.table-data{
+  border: 1px solid #02066f;
+  text-transform: capitalize;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+.status, .students{
+  width: 50px;
+}
+
+.created-date{
+  width: 150px;
+}
+
+.course-id{
+  width: 100px;
+}
+
+.instructor{
+  width: 200px;
+  text-wrap: break-word;
+}
+
+.title{
+  width: 300px;
+  text-wrap: break-word;
+}
+
+.actions .btn {
+  margin-right: 5px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.actions .btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  padding-bottom: 1px;
+}
+
+.actions .btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+/* Forms */
+.course-details{
+  width: 600px;
+  margin-left: 0;
+  margin-top: 20px;
+}
+
+.course-details .card-header{
+  background-color: #02066f;
+  color: #fff;
+}
+
+.course-details .card-header .card-title{
+  text-transform: capitalize;
+}
+.course-form{
+  width: 580px;
+}
+
+.course-details button{
+  background-color: #02066f;
+  color: #fff;
+  margin-left: 40%;
+  font-size: 16px;
+  padding: 5px;
+  width: 100px;
+}
+
+.course-details button:hover{
+  background-color: #FFD700;
+  color: #000000;
+}
+
+.form-label{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.form-check-input{
+  background-color: #FFD700;
+}

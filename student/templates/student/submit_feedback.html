@@ -1,0 +1,23 @@
+
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h3>Submit Feedback for {{ course.title }}</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_rating" class="form-label">Rating</label>
+                    {{ form.rating }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_feedback_text" class="form-label">Feedback</label>
+                    {{ form.feedback_text }}
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Feedback</button>
+            </form>
+        </div>
+    </div>
+</div>

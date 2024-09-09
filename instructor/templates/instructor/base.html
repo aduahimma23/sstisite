@@ -1,0 +1,158 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'instructor/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'instructor/css/responsive.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <!-- Company Logo -->
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'images/logo/logo.png' %}" alt="Company Logo" class="img-fluid">
+        </a>
+
+
+        <div class="navbar-collapse" id="navbarContent">
+
+            <!-- Right side: Profile, Notifications, Settings -->
+            <ul class="navbar-nav ms-auto d-flex flex-lg-row flex-column align-items-lg-center">
+                <!-- Profile Picture -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="" alt="Profile" class="rounded-circle profile-pic"
+                            style="width: 40px; height: 40px;" 
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                        <!-- Fallback Font Awesome Icon -->
+                        <i class="fas fa-user-circle fa-2x fallback-icon" style="display:none;"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                        <li><a class="dropdown-item" href="#">View Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </li>
+                <!-- Notification Icon -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-2x fa-bell"></i>
+                    </a>
+                </li>
+                <!-- Settings Icon -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-2x fa-cog"></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- Left side: Search -->
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+
+        </div>
+    </div>
+  </nav>
+
+  <div class="wrapper-container">
+    <!-- Sidebar Holder -->
+    <div class="wrapper">
+      <nav id="sidebar">
+        <ul class="list-unstyled components">
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="{% url 'instructor:home' %}">
+              <i class="fas fa-house-user"></i>Home
+            </a>
+          </li>
+
+          <li class="sidebar-item dropdown">
+            <a class="sidebar-link dropdown-toggle" href="#" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-user"></i> My Profile
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+              <li><a class="dropdown-item" href="#">View Profile</a></li>
+              <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+            </ul>
+          </li>          
+          
+          <li class="sidebar-item dropdown">
+            <a class="sidebar-link dropdown-toggle" href="#" id="coursesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-folder"></i>My Courses
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="coursesDropdown">
+              <li><a class="dropdown-item" href="{% url 'instructor:course_form' %}">Add New Course</a></li>
+              <li><a class="dropdown-item" href="{% url 'instructor:course_detail' %}">Add Course Details</a></li>
+              <li><a class="dropdown-item" href="{% url 'instructor:course_detail' %}">View Course</a></li>
+            </ul>
+          </li>
+
+          <!-- My Students Dropdown -->
+          <li class="sidebar-item dropdown">
+            <a class="sidebar-link dropdown-toggle" href="#" id="studentsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-graduation-cap"></i>My Students
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="studentsDropdown">
+              <li><a class="dropdown-item" href="#">Student List</a></li>
+              <li><a class="dropdown-item" href="#">Add New Student</a></li>
+              <li><a class="dropdown-item" href="#">Student Performance</a></li>
+            </ul>
+          </li>
+
+          <!-- Assessment Dropdown -->
+          <li class="sidebar-item dropdown">
+            <a class="sidebar-link dropdown-toggle" href="#" id="assessmentDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-book"></i>Assessment
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="assessmentDropdown">
+              <li><a class="dropdown-item" href="#">Create Assessment</a></li>
+              <li><a class="dropdown-item" href="#">View Assessments</a></li>
+              <li><a class="dropdown-item" href="#">Grade Assessments</a></li>
+            </ul>
+          </li>
+
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="">
+              <i class="fas fa-bars"></i>Settings
+            </a>
+          </li>
+
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="">
+              <i class="fas fa-comment"></i>Feedback
+            </a>
+          </li>
+
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="#">
+              <i class="fas fa-bars"></i>Settings
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

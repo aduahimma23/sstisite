@@ -1,0 +1,26 @@
+{% extends 'instructor/base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Mark Assessment</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.student_submission.label_tag }}<br>
+            {{ form.student_submission }}
+        </div>
+        <div class="mb-3">
+            {{ form.marks_obtained.label_tag }}<br>
+            {{ form.marks_obtained }}
+        </div>
+        <div class="mb-3">
+            {{ form.feedback.label_tag }}<br>
+            {{ form.feedback }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

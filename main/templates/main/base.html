@@ -82,7 +82,7 @@
                         <a href="teacher.html" class="nav-item nav-link">Mission</a>
                         <a href="{% url 'main:contact' %}" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a class="btn btn-primary py-2 px-4 ml-lg-3 d-none d-lg-block" href="{% url 'acc:signup' %}">Login | Register</a>
+                    <a class="btn btn-primary py-2 px-4 ml-lg-3 d-none d-lg-block" href="{% url 'account:signup' %}">Login | Register</a>
                 </div>
             </nav>
         </div>
@@ -179,6 +179,7 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/account.js' %}"></script>
 </body>
 
 </html>
