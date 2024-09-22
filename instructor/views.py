@@ -33,7 +33,7 @@ def course_detail_create(request):
             video_number = form.cleaned_data('video_number')
 
             for file in files:
-                CourseDetail.objects.create(
+                Video.objects.create(
                     course_name = course_name,
                     course_type = course_type,
                     content = file,
@@ -48,6 +48,17 @@ def course_detail_create(request):
         form = CourseDetailsForm()
 
     return render(request, 'forms/course_detail_form.html', {'form': form})
+
+def create_annoucement(request, course_id):
+    if request.method == 'POST':
+        forms = AnnouncementForm(request.POST)
+        if forms.is_valid():
+            forms.save(commit=False)
+            messages.success(request, 'Annoucement created successfully')
+        else:
+            messages.error(request, 'Fill all the fields')
+    else:
+        forms = Announcement()
 
 class MarkAssessmentView(View):
     template_name = 'instructor/mark_assessment.html'
@@ -65,3 +76,5 @@ class MarkAssessmentView(View):
         else:
             messages.error(request, 'Please correct the errors below.')
         return render(request, self.template_name, {'form': form})
+    
+

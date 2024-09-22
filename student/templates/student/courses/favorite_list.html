@@ -1,0 +1,23 @@
+{% extends 'student/base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<div class="favorite-courses">
+    <h2>Your Favorite Courses</h2>
+
+    {% if favorites %}
+    <ul>
+        {% for favorite in favorites %}
+        <li>
+            <a href="{% url 'student:course_detail' favorite.course_id %}">- {{ favorite.course.title }}</a>
+            <a href="{% url 'student:remove_from_favorites' favorite.course_id %}" class="remove-favorite">Remove</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Your wishlist is empty.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

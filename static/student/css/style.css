@@ -1,0 +1,543 @@
+/* General styling for the navbar */
+.navbar-container {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.navbar-container {
+    text-align: center;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.navbar-nav .nav-link {
+    color: #555;
+    font-weight: 500;
+    margin-right: 1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #002366;
+}
+
+.navbar-nav .nav-item .dropdown-menu {
+    border-radius: 0.5rem;
+}
+
+.dropdown{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Align the profile picture and text on the same line */
+.dropdown-item {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-item:hover{
+    background-color: #002366;
+    color: #fff;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.profile-dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.profile-dropdown .dropdown-menu {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.profile-info h6, 
+.profile-info p {
+    margin: 0;
+}
+
+.text-muted {
+    color: #6c757d;
+}
+
+.dropdown-menu {
+    padding: 10px;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.search-bar {
+    width: 400px;
+    transition: width 0.3s ease;
+    margin-right: 5px;
+}
+
+div a i{
+    font-size: 20px;
+    margin: 10px;  
+}
+
+hr {
+    margin: 5px 0;
+}
+/* End of navbar css */
+
+/* Home css */
+.top-profile .profile-content-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic {
+    margin-right: 20px;
+}
+
+.profile-pic img, .profile-pic i {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.profile-content h3, .profile-content h4 {
+    margin: 0;
+    padding: 0;
+}
+
+.profile-content {
+    display: inline-block;
+}
+
+.home-content {
+    padding: 10px 20px;
+    background-image: linear-gradient(to left, rgba(255,215,0,0.8), rgba(255,255,255,1));
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.home-text{
+    background-image: linear-gradient(to right, rgba(255,215,0,0.8), rgba(255,255,255,1));
+    padding: 20px 0 20px 0;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+.home-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.home-p {
+    font-size: 1.2rem;
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.get-started {
+    background-color: #ffbf00;
+    margin-left: 25%;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 25px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    color: #000;
+    font-size: 1.5em;
+    font-weight: 200px;
+}
+
+.get-started:hover {
+    background-color: #002366;
+    color: #fff;
+}
+
+.my-image {
+    max-width: 100%;
+    height: 300px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Explore Courses */
+/* General container and layout */
+.container-fluid {
+    padding: 0;
+}
+
+.course-container {
+    max-width: 100%;
+    padding: 0;
+}
+
+.course-cat {
+    background-color: #f8f9fa;
+    padding: 200px 0;
+}
+
+.course-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Card Style */
+.card {
+    border-radius: 10px;
+    border: none;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Image Styling */
+.course-img-fluid {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px 10px 0 0;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .course-img-fluid {
+    transform: scale(1.05);
+}
+
+/* Title */
+.card-title {
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin-top: 15px;
+    color: #343a40;
+}
+
+/* Instructor Name */
+.instructor {
+    color: #6c757d;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+
+.rating-value {
+    color: #002366;
+    font-weight: bold;
+}
+
+/* Cost */
+.cost {
+    font-size: 1rem;
+    color: #ffbf00;
+    margin-bottom: 20px;
+}
+
+/* Description */
+.description {
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+p span i{
+    color: #002366;
+    font-size: 10px;
+    margin: 0;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Space between cards */
+}
+
+.course-hover-content {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 215, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    cursor: auto;
+    transition: opacity 0.3s ease-in-out;
+    padding: 20px;
+    text-align: left;
+}
+
+.cat-item:hover .course-hover-content {
+    opacity: 1;
+}
+
+.course-content {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.cat-item:hover .course-content {
+    opacity: 0;
+}
+
+.course-hover-content h4, .course-hover-content p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Styling for the hover elements */
+.hover-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.hover-hours {
+    font-size: 0.8rem;
+    padding-bottom: 10px;
+    font-style: italic;
+}
+
+.hover-description {
+    font-size: 0.9rem;
+    padding-bottom: 15px;
+    text-wrap: wrap;
+}
+
+.hover-icons{
+    display: flex;
+}
+
+.hover-icons i {
+    cursor: pointer;
+    border: 1px solid #002366;
+    color: #002366;
+    border-radius: 50%;
+    padding: 5px;
+    background-color: #fff;
+}
+
+.hover-icons i:hover{
+    color: #ffbf00;
+}
+
+.add-to-cart{
+    font-size: 1rem;
+    background-color: #002366;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    padding: 0 5px;
+    margin: 10px 0;
+}
+
+/* Student profile */
+.card {
+    border-radius: 15px;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+.card-body h3 {
+    font-weight: 600;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.text-muted {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.update-profile{
+    background-color: #ffbf00;
+    color: #000;
+    font-size: 1em;
+    border-radius: 10px;
+}
+
+/* -----------------> Wishlist CSS <----------------- */
+/* Wishlist table */
+.table {
+    margin-top: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+}
+
+/* Table headers */
+.table th {
+    background-color: #002366;
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Table rows */
+.table td {
+    text-align: center;
+    font-size: 1rem;
+    padding: 15px;
+    vertical-align: middle;
+}
+
+/* Course links */
+.table td a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+}
+
+.table td a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Button styles */
+.btn {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-primary:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+/* No courses in wishlist message */
+.table td[colspan="3"] {
+    color: #6c757d;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* ---------> Favorite Course <---------- */
+.nav-link:hover .favorite-courses {
+    display: block;
+}
+
+.favorite-courses {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+}
+
+.favorite-courses ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.favorite-courses li {
+    padding: 8px 0;
+}
+
+/* --------> Assignment Submission CSS <-----------------*/
+.assignment-attempt-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.assignment-attempt-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    resize: none;
+}
+
+.form-control[disabled] {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}

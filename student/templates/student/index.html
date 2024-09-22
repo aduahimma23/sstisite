@@ -1,0 +1,165 @@
+{% extends 'student/base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<div class="top-profile container">
+    <div class="profile-content-wrapper">
+        <div class="profile-pic mt-4">
+            {% if user.profile_picture %}
+                <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+            {% else %}
+                <i class="fas fa-user-circle fa-5x"></i>
+            {% endif %}
+        </div>
+        <div class="profile-content">
+            <h3 class="profile-name">Welcome back, {{ user.first_name }}</h3>
+            <h4 class="profile-interest">{{ user.interest }}</h4>
+        </div>
+    </div>
+</div>
+
+<div class="home-content container mt-4">
+    <div class="row align-items-center">
+        <div class="home-text col-md-6 mt-4">
+            <h3 class="home-title">Learning that gets you</h3>
+            <p class="home-p">Skills for your present (and your future). Get started with us.</p>
+            <a href="#" class="get-started btn-lg mt-3">Get Started</a>
+        </div>
+        <div class="home-image col-md-6 text-center">
+            <img class="my-image img-fluid" src="{% static 'images/main/ssti4.jpg' %}" alt="Learning Image">
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-5 course-cat">
+    <div class="container pt-1 pb-3 course-container">
+        <div class="text-left mb-2">
+            <h1>Explore Top Courses</h1>
+        </div>
+        <div class="row">
+            <!-- Course Card 1 -->
+            <div class="col-lg-2 col-md-3 col-sm-6 mb-4">
+                <a href="#" class="cat-item card shadow-lg text-decoration-none">
+                    <div class="card-body course-content">
+                        <img class="course-img-fluid" src="{% static 'images/main/cat-1.jpg' %}" alt="Web Design">
+                        <h3 class="card-title mt-3 text-dark">Knowing yourself for the right job</h3>
+                        <p class="card-text instructor text-muted"><strong>John Doe</strong></p>
+                        <p class="card-text">
+                            <span class="rating-value">4.5</span>
+                            <span class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                        </p>
+                        <p class="card-text cost"><strong>$49.99</strong></p>
+                    </div>
+                    <div class="course-hover-content">
+                        <h4 class="hover-title pb-1">Knowing yourself for the right job</h4>
+                        <p class="hover-hours">Total Hours: 40</p>
+                        <p class="hover-description">Learn the fundamentals of web design, including HTML, CSS, and more!</p>
+                        <div class="hover-icons">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>  
+
+            <!-- Course Card 2 -->
+            <div class="col-lg-2 col-md-3 col-sm-6 mb-4">
+                <a href="#" class="cat-item card shadow-lg text-decoration-none">
+                    <div class="card-body course-content">
+                        <img class="course-img-fluid" src="{% static 'images/main/cat-1.jpg' %}" alt="Web Design">
+                        <h3 class="card-title mt-3 text-dark">Web Design</h3>
+                        <p class="card-text instructor text-muted"><strong>John Doe</strong></p>
+                        <p class="card-text">
+                            <span class="rating-value">4.5</span>
+                            <span class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                        </p>
+                        <p class="card-text cost"><strong>$49.99</strong></p>
+                    </div>
+                </a>
+            </div>  
+
+            <!-- Course Card 3 -->
+            <div class="col-lg-2 col-md-3 col-sm-6 mb-4">
+                <a href="#" class="cat-item card shadow-lg text-decoration-none">
+                    <div class="card-body course-content">
+                        <img class="course-img-fluid" src="{% static 'images/main/cat-1.jpg' %}" alt="Web Design">
+                        <h3 class="card-title mt-3 text-dark">Web Design</h3>
+                        <p class="card-text instructor text-muted"><strong>John Doe</strong></p>
+                        <p class="card-text">
+                            <span class="rating-value">4.5</span>
+                            <span class="font-awesome-item">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </span> 
+                        </p>
+                        <p class="card-text cost"><strong>$49.99</strong></p>
+                    </div>
+                </a>
+            </div>  
+
+            <!-- Course Card 4 -->
+            <div class="col-lg-2 col-md-3 col-sm-6 mb-4">
+                <a href="#" class="cat-item card shadow-lg text-decoration-none">
+                    <div class="card-body course-content">
+                        <img class="course-img-fluid" src="{% static 'images/main/cat-1.jpg' %}" alt="Web Design">
+                        <h3 class="card-title mt-3 text-dark">Web Design</h3>
+                        <p class="card-text instructor text-muted"><strong>John Doe</strong></p>
+                        <p class="card-text">
+                            <span class="rating-value">4.5</span>
+                            <span class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            
+                        </p>
+                        <p class="card-text cost"><strong>$49.99</strong></p>
+                    </div>
+                </a>
+            </div>  
+
+            <!-- Course Card 5 -->
+            <div class="col-lg-2 col-md-3 col-sm-6 mb-4">
+                <a href="#" class="cat-item card shadow-lg text-decoration-none">
+                    <div class="card-body course-content">
+                        <img class="course-img-fluid" src="{% static 'images/main/cat-1.jpg' %}" alt="Web Design">
+                        <h3 class="card-title mt-3 text-dark">Web Design</h3>
+                        <p class="card-text instructor text-muted"><strong>John Doe</strong></p>
+                        <p class="card-text">
+                            <span class="rating-value">4.5</span>
+                            <span class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            
+                        </p>
+                        <p class="card-text cost"><strong>$49.99</strong></p>
+                    </div>
+                </a>
+            </div>  
+        </div>
+    </div>
+</div>
+
+{% endblock %}

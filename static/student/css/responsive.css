@@ -1,0 +1,71 @@
+/* Responsive for the navbar */
+/* Responsive design for mobile */
+
+/* @media (min-width: 992px) {
+    .navbar .container {
+        justify-content: center;
+    }
+    .navbar-nav {
+        justify-content: center;
+    }
+    .navbar .nav-item {
+        display: inline-block;
+        margin: 0 10px;
+    }
+    .navbar .d-flex {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+    }
+    .navbar-toggler {
+        margin-left: auto;
+    }
+} */
+
+@media (max-width: 991.98px) {
+    .navbar-nav {
+        display: flex;
+        text-align: center;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+}
+/* End of responsive for navbar */
+
+/* Home Explore Course Responsive */
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .cat-link {
+        flex-direction: column;
+    }
+    .read-more, .register {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-text {
+        text-align: center;
+    }
+    .btn-primary {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+/* Adjust col size for perfect fit */
+@media (min-width: 1200px) {
+    .col-lg-2 {
+        flex: 0 0 19.8%;
+        max-width: 19.8%;
+    }
+}

@@ -4,11 +4,10 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
 import random
 from django.conf import settings
-from instructor.models import Instructor, Course, CourseDetail, Assignment
+from instructor.models import Instructor, Course, Video, CreateAssessment
 
 
 user = get_user_model()
-
 
 class Student(models.Model):
     first_name = models.CharField(max_length=120, blank=False, unique=False)
@@ -50,7 +49,7 @@ class StudentProfile(models.Model):
 
 
 class EnrollCourse(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='enroll courses')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='enroll_courses')
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='student')
     enroll_at = models.DateTimeField(auto_now_add=True)
     progress = models.DecimalField(max_digits=3, decimal_places=2, default=0)
@@ -65,24 +64,46 @@ class EnrollCourse(models.Model):
         
 class ViewCourse(models.Model):
     instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, related_name='instructor_profile')
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='view course')
-    course = models.ForeignKey(CourseDetail, on_delete=models.CASCADE, related_name='course_details')
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='view_course')
+    course = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='course_details')
     viewed_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return f'Student: {self.student.first_name} {self.student.last_name} Course Name: {self.course.course_name} Instructor Name: {self.instructor.full_name}'
-    
-class AttemptAssignment(models.Model):
-    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='assignment_attempts')
-    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='assignment_attempts')
-    submitted_work = models.FileField(upload_to='assignment_submissions/', blank=True, null=True)
-    submission_time = models.DateTimeField(blank=True, null=True)
-    marks_obtained = models.IntegerField(blank=True, null=True)
-    feedback = models.TextField(blank=True, null=True)
+
+
+class Wishlist(models.Model):
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='wishlist')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='wishlist_course')
+    added_at = models.DateField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('student', 'course')
+
+    def __str__(self):
+        return f"{self.student.username} - {self.course.title}"
+
+class AttemptAssessment(models.Model):
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='attempt_assessments')
+    assessment = models.ForeignKey(CreateAssessment, on_delete=models.CASCADE, related_name='attempted_assessments')
+    selected_answer = models.CharField(max_length=1, choices=CreateAssessment.CORRECT_ANSWER_OPTION, blank=True, null=True)
+    is_correct = models.BooleanField(default=False)
+    marks_obtained = models.PositiveIntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        # Automatically mark the assessment if it's an MCQ
+        if self.assessment.question_type == 'MCQ':
+            self.is_correct = self.selected_answer == self.assessment.correct_answer
+            self.marks_obtained = self.assessment.marks if self.is_correct else 0
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.student.username} - {self.assessment.question_text}"
+
 
 
 class TrackProgress(models.Model):
-    student = models.ForeignKey(EnrollCourse, on_delete=models.CASCADE, related_name='track progrss')
+    student = models.ForeignKey(EnrollCourse, on_delete=models.CASCADE, related_name='track_progrss')
     progress_percentage = models.DecimalField(max_digits=3, decimal_places=2, default=0)
     
     
@@ -116,3 +137,12 @@ class CertificateRequest(models.Model):
         course_completion = ViewCourse.objects.filter(student=self.student, course=self.course, is_completed=True).exists()
         if not course_completion:
             raise ValidationError('You cannot request a certificate for a course you have not completed.')
+
+
+class Favorite(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='favorites')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='favorited_by')
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f'Student Name: {self.student.first_name} {self.student.last_name} Favorite Course: {self.course.title}' 

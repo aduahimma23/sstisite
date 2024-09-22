@@ -1,4 +1,4 @@
-from .models import Feedback, StudentProfile
+from .models import Feedback, StudentProfile, CertificateRequest
 from django import forms
 
 
@@ -25,4 +25,13 @@ class StudentProfileForm(forms.ModelForm):
             'postal_code': forms.TextInput(attrs={'class': 'form-control'}),
             'country': forms.TextInput(attrs={'class': 'form-control'}),
             'date_of_birth': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        }
+
+class RequestCertificateForm(forms.ModelForm):
+    class Meta:
+        model = CertificateRequest
+        fields = ['course']
+
+        widgets = {
+            'course': forms.Select(attrs={'class': 'form-control'}),
         }

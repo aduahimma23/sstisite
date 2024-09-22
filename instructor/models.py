@@ -2,21 +2,32 @@ from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
 import random
+from django.contrib.auth import get_user_model
+from django.utils import timezone
+
+
+User = get_user_model()
 
 
 class Instructor(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='instructor_profile')
-    full_name = models.CharField(max_length=155, null=False, blank=False, unique=False)
-    expertise = models.CharField(max_length=255, blank=False, null=True)
-    phone_number = models.CharField(max_length=15, blank=False, unique=True)
+    first_name = models.CharField(max_length=155, null=False, blank=False, unique=False)
+    last_name = models.CharField(max_length=255, )
     instructor_id = models.CharField(max_length=8, unique=True, editable=False)
     date_joined = models.DateTimeField(auto_now_add=True)
 
 
 class InstructorProfile(models.Model):
     instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
-    bio = models.CharField(max_length=1024, blank=False, unique=True)
+    phone_number = models.CharField(max_length=15, blank=False, unique=True)
     profile_picture = models.ImageField(upload_to='instructor_pictures', blank=True, null=True)
+    qualifications = models.TextField(blank=False, null=True)
+    experience_years = models.PositiveIntegerField(default=0)
+    specialties = models.CharField(max_length=255, blank=True)
+    social_media_link = models.URLField(max_length=255, blank=True)
+    location = models.CharField(max_length=255, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name} - Instructor Profile"
@@ -32,12 +43,22 @@ class InstructorProfile(models.Model):
             if not InstructorProfile.objects.filter(instructor_id = instructor_id).exists():
                 return instructor_id
 
+class PaymentStatus(models.Model):
+    instructor = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='payment_status')
+    has_paid = models.BooleanField(default=False)
+    payment_date = models.DateTimeField(null=True, blank=True)
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.instructor.username} - {'Paid' if self.has_paid else 'Not Paid'}"
+    
 
 class Course(models.Model):
     instructor_profile = models.ForeignKey(InstructorProfile, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, unique=False, blank=False)
     course_id = models.CharField(max_length=8, unique=True, editable=False)
     description = models.TextField()
+    image_flyer = models.ImageField(upload_to='course_image/', blank=False, unique=True)
     status = models.BooleanField(default=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
@@ -55,16 +76,39 @@ class Course(models.Model):
             if not Course.objects.filter(course_id=course_id).exists():
                 return course_id
 
+class Section(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='sections')
+    section_title = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    section_number = models.PositiveIntegerField(editable=False)
 
-class CourseDetail(models.Model):
-    course_name = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='courses')
-    content_type = models.CharField(max_length=255, blank=False, null=False)
-    content = models.FileField(upload_to='course_content/')
-    video_number = models.IntegerField(blank=True, null=True)
-    uploaded_at = models.DateTimeField(auto_now=True)
+    def save(self, *args, **kwargs):
+        if not self.pk:  # If the section is being created
+            last_section = Section.objects.filter(course=self.course).order_by('section_number').last()
+            self.section_number = last_section.section_number + 1 if last_section else 1
+        
+        super().save(*args, **kwargs)
 
-    def __str__(self) -> str:
-        return f'Details for {self.course_name.title}'
+    def __str__(self):
+        return f'Section {self.section_number}: {self.section_title} - {self.course.title}'
+
+
+class Video(models.Model):
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='videos')
+    title = models.CharField(max_length=255)
+    video_file = models.FileField(upload_to='course_videos/')
+    video_number = models.PositiveIntegerField(editable=False)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            last_video = Video.objects.filter(section = self.section).order_by('video_number').last()
+            self.video_number = last_video.video_number + 1 if last_video else 1
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.video_title} in {self.section.section_title}'
 
 
 class Assignment(models.Model):
@@ -89,11 +133,9 @@ class Assessment(models.Model):
 
 
 class CreateAssessment(models.Model):
-    '''For the Instructor to create a question'''
-
     QUESTION_CHOICE_TYPE = [
-        ('MCQ', 'Multiplle Choice Questions'),
-        ('SUB', 'Subjective Quesitions'),
+        ('MCQ', 'Multiple Choice Questions'),
+        ('SUB', 'Subjective Questions'),
     ]
 
     CORRECT_ANSWER_OPTION = [
@@ -106,17 +148,17 @@ class CreateAssessment(models.Model):
     question_type = models.CharField(max_length=10, choices=QUESTION_CHOICE_TYPE, blank=False, default='MCQ')
     question_text = models.CharField(max_length=255, unique=True, blank=False)
 
-    # If the question is multiple choice
-    option_a = models.CharField(max_length=255, blank=True, unique=True)
-    option_b = models.CharField(max_length=255, blank=True, unique=True)
-    option_c = models.CharField(max_length=255, blank=True, unique=True)
-    option_d = models.CharField(max_length=255, blank=True, unique=True)
+    # Options for MCQ
+    option_a = models.CharField(max_length=255, blank=True)
+    option_b = models.CharField(max_length=255, blank=True)
+    option_c = models.CharField(max_length=255, blank=True)
+    option_d = models.CharField(max_length=255, blank=True)
 
-    marks = models.PositiveIntegerField(unique=False, blank=False)
+    marks = models.PositiveIntegerField(blank=False)
 
-    correct_answer = models.CharField(max_length=1, blank=False, null=False, unique=False, choices=CORRECT_ANSWER_OPTION)
+    correct_answer = models.CharField(max_length=1, blank=False, choices=CORRECT_ANSWER_OPTION)
 
-    # if the question is subjective
+    # Subjective answer
     answer_text = models.TextField(blank=True, null=True)
 
     def clean(self) -> None:
@@ -124,7 +166,7 @@ class CreateAssessment(models.Model):
             raise ValidationError('MCQ type questions require options and a correct answer.')
         if self.question_type == 'SUB' and not self.answer_text:
             raise ValidationError("Subjective questions require an answer text.")
-
+    
     def __str__(self):
         return self.question_text
 
@@ -149,11 +191,15 @@ class MarkAssessment(models.Model):
         return f"{self.student_submission.student.username} - Marks: {self.marks_obtained}"
     
 
-class PaymentStatus(models.Model):
-    instructor = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='payment_status')
-    has_paid = models.BooleanField(default=False)
-    payment_date = models.DateTimeField(null=True, blank=True)
-    amount_paid = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+class Announcement(models.Model):
+    instructor = models.ForeignKey(InstructorProfile, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, blank=False)
+    message = models.TextField(blank=False)
+    date_created = models.DateTimeField(default=timezone.now)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.instructor.username} - {'Paid' if self.has_paid else 'Not Paid'}"
+        return f"{self.title} - {self.course.title}"
+    
+

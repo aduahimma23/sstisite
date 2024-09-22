@@ -1,0 +1,13 @@
+<form method="POST">
+    {% csrf_token %}
+    <h2>{{ assessment.question_text }}</h2>
+    
+    {% if assessment.question_type == 'MCQ' %}
+    <label><input type="radio" name="selected_answer" value="A"> {{ assessment.option_a }}</label><br>
+    <label><input type="radio" name="selected_answer" value="B"> {{ assessment.option_b }}</label><br>
+    <label><input type="radio" name="selected_answer" value="C"> {{ assessment.option_c }}</label><br>
+    <label><input type="radio" name="selected_answer" value="D"> {{ assessment.option_d }}</label><br>
+    {% endif %}
+
+    <button type="submit">Submit</button>
+</form>

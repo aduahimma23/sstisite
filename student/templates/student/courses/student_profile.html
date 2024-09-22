@@ -1,0 +1,29 @@
+{% extends 'student/base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<div class="container mt-5"></div>
+    <div class="card mb-3 shadow">
+        <div class="row no-gutters">
+            <div class="col-md-4 text-center p-3">
+                <img src="{{ student_profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid rounded-circle" style="max-width: 200px;">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h3 class="card-title">{{ student_profile.student.name_first }} {{ student_profile.student.last_name }}</h3>
+                    <p class="card-text"><strong>Bio:</strong> {{ student_profile.bio|default:"No bio available" }}</p>
+                    <p class="card-text"><strong>Phone Number:</strong> {{ student_profile.phone_number|default:"Not Provided" }}</p>
+                    <p class="card-text"><strong>Address:</strong> {{ student_profile.address|default:"Not Provided" }}</p>
+                    <p class="card-text"><strong>City:</strong> {{ student_profile.city|default:"Not Provided" }}</p>
+                    <p class="card-text"><strong>Postal Code:</strong> {{ student_profile.postal_code|default:"Not Provided" }}</p>
+                    <p class="card-text"><strong>Country:</strong> {{ student_profile.country|default:"Not Provided" }}</p>
+                    <p class="card-text"><strong>Date of Birth:</strong> {{ student_profile.date_of_birth|date:"F j, Y" }}</p>
+                    <p class="card-text"><small class="text-muted">Profile last updated at {{ student_profile.updated_at|date:"F j, Y, g:i a" }}</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

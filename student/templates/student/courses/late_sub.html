@@ -1,0 +1,25 @@
+{% extends 'student/base.html' %}
+{% load static %}
+{% block title %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Attempt Assignment: {{ assignment.title }}</h2>
+
+    {% if attempt.status == 'Submitted' %}
+        <p><strong>Status:</strong> You have already submitted this assignment.</p>
+        <p><strong>Submission:</strong> {{ attempt.submission }}</p>
+        <p><strong>Submitted At:</strong> {{ attempt.submitted_at }}</p>
+    {% else %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="submission" class="form-label">Your Answer</label>
+                <textarea class="form-control" id="submission" name="submission" rows="5">{{ attempt.submission }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Assignment</button>
+        </form>
+    {% endif %}
+</div>
+
+{% endblock %}

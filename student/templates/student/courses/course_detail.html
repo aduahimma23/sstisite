@@ -1,0 +1,82 @@
+{% extends 'student/base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<div class="container course-container">
+    <div class="row">
+        <!-- Main Video Section (First video displayed) -->
+        <div class="col-lg-8">
+            <div class="main-video">
+                <h3>{{ course.title }}</h3>
+                <video controls width="100%">
+                    <source src="{{ course.videos.first.video_file.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p>Video {{ course.videos.first.video_number }}: {{ course.videos.first.content_type }}</p>
+            </div>
+
+            <!-- Tab Section Below the Main Video -->
+            <ul class="nav nav-tabs mt-3" id="courseTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="qa-tab" data-bs-toggle="tab" href="#qa" role="tab" aria-controls="qa" aria-selected="false">Q&A</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="notes-tab" data-bs-toggle="tab" href="#notes" role="tab" aria-controls="notes" aria-selected="false">Notes</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="announcement-tab" data-bs-toggle="tab" href="#announcement" role="tab" aria-controls="announcement" aria-selected="false">Announcement</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="review-tab" data-bs-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Review</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="tools-tab" data-bs-toggle="tab" href="#tools" role="tab" aria-controls="tools" aria-selected="false">Learning Tools</a>
+                </li>
+            </ul>
+
+            <div class="tab-content mt-3" id="courseTabContent">
+                <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                    <p>{{ course.description }}</p>
+                </div>
+                <div class="tab-pane fade" id="qa" role="tabpanel" aria-labelledby="qa-tab">
+                    <p>Q&A content goes here...</p>
+                </div>
+                <div class="tab-pane fade" id="notes" role="tabpanel" aria-labelledby="notes-tab">
+                    <p>Notes content goes here...</p>
+                </div>
+                <div class="tab-pane fade" id="announcement" role="tabpanel" aria-labelledby="announcement-tab">
+                    <p>Announcement content goes here...</p>
+                </div>
+                <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+                    <p>Review content goes here...</p>
+                </div>
+                <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="tools-tab">
+                    <p>Learning Tools content goes here...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other Videos Section -->
+        <div class="col-lg-4">
+            <div class="other-videos">
+                <h5>Other Videos</h5>
+                <ul class="list-group">
+                    {% for video in course.videos.all|slice:"1:" %}
+                    <li class="list-group-item">
+                        <a href="{{ video.video_file.url }}" class="d-flex justify-content-between align-items-center">
+                            <span>Video {{ video.video_number }}</span>
+                            <span>{{ video.content_type }}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

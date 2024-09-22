@@ -25,3 +25,9 @@ class CreateAssessmentAdmin(admin.ModelAdmin):
 
 admin.site.register(CreateAssessment, CreateAssessmentAdmin)
 
+
+@admin.register(Announcement)
+class AnnouncementAdmin(admin.ModelAdmin):
+    list_display = ('title', 'course', 'instructor', 'date_created', 'is_active')
+    search_fields = ('title', 'course__title', 'instructor__name')
+    list_filter = ('course', 'instructor', 'is_active')

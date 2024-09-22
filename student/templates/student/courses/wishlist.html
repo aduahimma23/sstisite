@@ -1,0 +1,27 @@
+<div class="container mt-5">
+    <h3>Your Wishlist</h3>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Course Title</th>
+                <th>Date Added</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in wishlist %}
+            <tr>
+                <td><a href="{% url 'course_detail' item.course.id %}">{{ item.course.title }}</a></td>
+                <td>{{ item.added_at|date:"Y-m-d H:i" }}</td>
+                <td>
+                    <a href="{% url 'remove_from_wishlist' item.course.id %}" class="btn btn-danger btn-sm">Remove</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="text-center">No courses in your wishlist.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

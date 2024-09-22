@@ -1,0 +1,41 @@
+
+
+<div class="container mt-5">
+    <h3>Your Certificate Requests</h3>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Course</th>
+                <th>Request Date</th>
+                <th>Status</th>
+                <th>Download</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in certificate_requests %}
+            <tr>
+                <td>{{ request.course.title }}</td>
+                <td>{{ request.request_date|date:"Y-m-d H:i" }}</td>
+                <td>
+                    {% if request.is_approved %}
+                        <span class="text-success">Approved</span>
+                    {% else %}
+                        <span class="text-warning">Pending Approval</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if request.is_approved and request.certificate_file %}
+                        <a href="{% url 'download_certificate' request.id %}" class="btn btn-success btn-sm">Download</a>
+                    {% else %}
+                        <span class="text-muted">Not Available</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No certificate requests found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

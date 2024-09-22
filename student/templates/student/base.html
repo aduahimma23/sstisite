@@ -1,0 +1,166 @@
+{% load django_bootstrap5 %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    {% bootstrap_css %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'student/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'student/css/responsive.css' %}">
+
+</head>
+<body>
+
+    <div class="all-navbar">
+        <div class="navbar-container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container justify-content-center">
+                    <a class="navbar-brand" href="#">SSTI</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Categories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">SSTI Business</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+        
+                    <div class="d-flex">
+                        <form class="d-flex me-2">
+                            <input class="form-control search-bar" type="search" placeholder="Search" aria-label="Search">
+                        </form>
+                    </div>
+        
+                    <div>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#">SSTI Business</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Teach on SSTI</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">My Learning</a>
+                            </li>
+                        </ul> 
+                    </div>
+        
+                    <div class="d-flex justify-content-center align-items-center">
+                        <a href="{% url 'student:favorite_list' %}" class="nav-link"><i class="fas fa-heart"></i></a>
+                        <a href="#" class="nav-link"><i class="fas fa-shopping-cart"></i></a>
+                        <a href="#" class="nav-link"><i class="fas fa-bell"></i></a>
+        
+                        <li class="nav-item dropdown profile-dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button">
+                                {% if user.profile_picture %}
+                                    <img src="{{ user.profile_picture.url }}" class="rounded-circle" alt="Profile Picture" style="width: 40px; height: 40px;">
+                                {% else %}
+                                    <i class="fas fa-user-circle fa-2x"></i>
+                                {% endif %}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="profileDropdown">
+                                <li>
+                                    <a class="dropdown-item">
+                                        {% if user.profile_picture %}
+                                            <img src="{{ user.profile_picture.url }}" class="rounded-circle" alt="Profile Picture" style="width: 40px; height: 40px;">
+                                        {% else %}
+                                            <i class="fas fa-user-circle fa-2x"></i>
+                                        {% endif %}
+                                        <div class="profile-info">
+                                            <h6 class="mb-0">Emmanuel Aduah</h6>
+                                            <p class="mb-0 text-muted">aduahimma18@gmail.com</p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <hr>
+                                <li><a class="dropdown-item" href="{% url 'student:student_profile' %}">My Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'student:edit_profile' %}">Edit Profile</a></li>
+                                <li><a class="dropdown-item" href="#"></a></li>
+                                <li><a class="dropdown-item" href=""></a></li>
+                                <hr>
+                                <li><a class="dropdown-item" href="#">My Cart</a></li>
+                                <li><a class="dropdown-item" href="{% url 'student:wishlist' %}">Wishlist</a></li>
+                                <li><a class="dropdown-item" href="#">Notifications</a></li>
+                                <li><a class="dropdown-item" href="">Teach on SSTI</a></li>
+                                <hr>
+                                <li><a class="dropdown-item" href="#">Notifications</a></li>
+                                <li><a class="dropdown-item" href="#">Messages</a></li>
+                                <hr>
+                                <li><a class="dropdown-item" href="#">Account Settings</a></li>
+                                <li><a class="dropdown-item" href="#">Payment Method</a></li>
+                                <li><a class="dropdown-item" href="#">Purchase History</a></li>
+                                <li><a class="dropdown-item" href="#">Subscriptions</a></li>
+                                <hr>
+                                <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Help and Support</a></li>
+                                <li><a class="dropdown-item" href="#">Language</a></li>
+                                <hr>
+                                <li><a class="dropdown-item" href="#">Log Out</a></li>
+                            </ul>
+                        </li>                        
+                </div>
+            </nav>
+        </div>        
+             
+        <div>      
+            <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-3">
+                <div class="container">
+                    <!-- Toggler button for mobile view -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+        
+                    <!-- Navbar Links -->
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+                            <!-- All Courses Link -->
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{% url 'student:course' %}">All Courses</a>
+                            </li>
+        
+                            <!-- Features Link -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Enrolled Courses</a>
+                            </li>
+        
+                            <!-- Pricing Link -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">My Certificate</a>
+                            </li>
+        
+                            <!-- Dropdown for All Courses -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Categories
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">SSTI Business</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Assignment</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    {% bootstrap_javascript %}
+</body>
+</html>
