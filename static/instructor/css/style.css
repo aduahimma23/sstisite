@@ -261,3 +261,23 @@ body {
 .form-check-input{
   background-color: #FFD700;
 }
+
+/* Enrolled Students */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table, th, td {
+  border: 1px solid #ddd;
+}
+
+.table th, td {
+  padding: 12px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f4f4f4;
+}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>My Assignments</h2>
+    <a href="{% url 'create_assignment' %}" class="btn btn-primary mb-3">Create New Assignment</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Course</th>
+                <th>Due Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for assignment in assignments %}
+            <tr>
+                <td>{{ assignment.title }}</td>
+                <td>{{ assignment.course.title }}</td>
+                <td>{{ assignment.due_date }}</td>
+                <td>
+                    <a href="{% url 'edit_assignment' assignment.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'delete_assignment' assignment.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -13,6 +13,7 @@ class Instructor(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='instructor_profile')
     first_name = models.CharField(max_length=155, null=False, blank=False, unique=False)
     last_name = models.CharField(max_length=255, )
+    username = models.CharField(max_length=255, blank=True, unique=True)
     instructor_id = models.CharField(max_length=8, unique=True, editable=False)
     date_joined = models.DateTimeField(auto_now_add=True)
 
@@ -30,7 +31,7 @@ class InstructorProfile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.user.first_name} {self.user.last_name} - Instructor Profile"
+        return f"{self.instructor.first_name} {self.instructor.last_name} - Instructor Profile"
 
     def save(self, *args, **kwargs):
         if not self.instructor_id:
@@ -108,7 +109,7 @@ class Video(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.video_title} in {self.section.section_title}'
+        return f'{self.title} in {self.section.section_title}'
 
 
 class Assignment(models.Model):
@@ -202,4 +203,3 @@ class Announcement(models.Model):
     def __str__(self):
         return f"{self.title} - {self.course.title}"
     
-

@@ -1,10 +1,12 @@
 from django.shortcuts import render,  redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from django.views import View
 from django.urls import reverse_lazy
 from django.contrib import messages
 from .forms import *
+from student.models import EnrollCourse
 
 class HomeView(TemplateView):
     template_name = 'instructor/index.html'
@@ -49,16 +51,53 @@ def course_detail_create(request):
 
     return render(request, 'forms/course_detail_form.html', {'form': form})
 
-def create_annoucement(request, course_id):
+def create_assessment(request):
     if request.method == 'POST':
-        forms = AnnouncementForm(request.POST)
-        if forms.is_valid():
-            forms.save(commit=False)
-            messages.success(request, 'Annoucement created successfully')
-        else:
-            messages.error(request, 'Fill all the fields')
+        form = CreateAssessmentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('instructor:assessment_success')
     else:
-        forms = Announcement()
+        form = CreateAssessmentForm()
+
+    return render(request, 'instructor/create_assessment.html', {'form': form})
+
+def assignment_list(request):
+    assignment = Assignment.objects.filter(course_instructor_profile_instructor=request.user)
+    return render(request, 'instructor/assignment_list.html', {'assignment': assignment})
+
+def create_assignment(request):
+    if request.method == 'POST':
+        form = AnnouncementForm(request.POST)
+        if form.is_valid():
+            assignment = form.save(commit=False)
+            assignment.course = form.cleaned_data['course']
+            assignment.save()
+            messages.success(request, 'Assignment Created Successfully')
+            return redirect('instructor:assignment_list', {'form': form})
+    else:
+        form = AssignmentForm()
+    return render(request, 'instructor/create_assignment.html')
+
+def edit_assignment(request, assignment_id):
+    assignment = get_object_or_404(Assignment, id=assignment_id)
+    if request.method == 'POST':
+        form = AssignmentForm(request.POST, instance=assignment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Assignment updated successfully!')
+            return redirect('assignment_list')
+    else:
+        form = AssignmentForm(instance=assignment)
+    return render(request, 'edit_assignment.html', {'form': form, 'assignment': assignment})
+
+def delete_assignment(request, assignment_id):
+    assignment = get_object_or_404(Assignment, id=assignment_id)
+    if request.method == 'POST':
+        assignment.delete()
+        messages.success(request, 'Assignment deleted successfully!')
+        return redirect('assignment_list')
+    return render(request, 'delete_assignment.html', {'assignment': assignment})
 
 class MarkAssessmentView(View):
     template_name = 'instructor/mark_assessment.html'
@@ -77,4 +116,31 @@ class MarkAssessmentView(View):
             messages.error(request, 'Please correct the errors below.')
         return render(request, self.template_name, {'form': form})
     
+def create_announcement(request):
+    # Ensure the user is an instructor
+    if not request.user.is_instructor:
+        return redirect('home')
 
+    if request.method == 'POST':
+        form = AnnouncementForm(request.POST)
+        if form.is_valid():
+            announcement = form.save(commit=False)
+            announcement.instructor = request.user.instructor_profile
+            announcement.save()
+            return redirect('instructor-announcements')
+    else:
+        form = AnnouncementForm()
+
+    return render(request, 'create_announcement.html', {'form': form})  
+
+def student_enrolled(request, course_id):
+    course = get_object_or_404(Course, id=course_id, instructor_profile_instructor=request.user)
+
+    enrollments = EnrollCourse.objects.filter(course=course)
+
+    context = {
+        'course': course,
+        'enrollment': enrollments
+    }
+
+    return render(request, 'instructor/enrolled_students.html', context)

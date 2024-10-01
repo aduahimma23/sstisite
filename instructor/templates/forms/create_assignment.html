@@ -1,0 +1,15 @@
+{% extends 'instructor/base.html' %}
+{% load static %}
+{% block title %}Create Assignment{% endblock %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>Create New Assignment</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Create Assignment</button>
+    </form>
+</div>
+
+{% endblock %}
